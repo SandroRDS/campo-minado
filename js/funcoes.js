@@ -10,7 +10,7 @@ function mostrarBombas()
             if(bombasLocalizacao[letras[linha] + coluna] == true)
             {
                 var botao = document.querySelector(`#${letras[linha]+coluna}`);
-                botao.style.background = "url(../images/bomba90x90.png) #3b1904";
+                botao.style.background = "url(images/bomba90x90.png) #3b1904";
             }
         }
     }
@@ -65,7 +65,7 @@ function colocarBandeira(linha, coluna)
     if(bandeirasAtivas[linha + coluna] == false)
     {
         var botao = document.querySelector(`#${linha+coluna}`);
-        botao.style.background = "url(../images/bandeira.png) #683416";
+        botao.style.background = "url(images/bandeira.png) #683416";
         bandeirasAtivas[linha + coluna] = true;
         quantidadeDeBandeiras--;
         document.getElementById("bandeiras_faltando").innerHTML = quantidadeDeBandeiras;
