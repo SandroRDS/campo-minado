@@ -1,0 +1,57 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body
+{
+    font-family: 'arial';
+    text-align: center;
+    background-image: linear-gradient(to top, rgb(87, 50, 7), rgb(221, 145, 82));
+    background-attachment: fixed;
+}
+
+#titulo
+{
+    display: inline-block;
+    font-size: 33px;
+    color: rgb(68, 40, 13);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#campo_principal
+{
+    border: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-between;
+    align-items: center;
+}
+
+.botao_mina
+{
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    margin: 0;
+    background-image: linear-gradient(to bottom, rgb(105, 54, 12), rgb(121, 62, 15), rgb(105, 54, 12));
+}
+
+#play
+{
+    background-color   : rgb(163, 104, 48); 
+    width              : 120px;
+    height             : 40px;
+    border-radius      : 50px;
+    border             : 3px solid rgb(59, 36, 1);
+    box-shadow         : 4px 4px 3px rgb(70, 47, 4);
+    position           : absolute;
+    right              : 200px;
+    top                : 10px;
+    cursor             : pointer;
+}
+

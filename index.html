@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campo Minado</title>
+    <link rel="shortcut icon" href="images/bomba.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <div>
+        <h1 id="titulo">Campo Minado</h1>
+        <img src="images/bomba.png" style="margin-left: 5px;">
+    </div>
+
+    <button id="play" onclick="iniciarJogo()">
+        <img src="images/play.png" width="30px" alt="">
+    </button>
+
+    <img src="images/instrucao.png" alt="" style="position: absolute; right: 0.5%; top: 39vh;">
+    <fieldset id="campo_principal">
+        
+        <!--Linha A-->
+        <div>
+            <button ondblclick="cavar('A', 1)" onclick="colocarBandeira('A', 1)" class="botao_mina" id="A1" disabled="true"></button>
+            <button ondblclick="cavar('A', 2)" onclick="colocarBandeira('A', 2)" class="botao_mina" id="A2" disabled="true"></button>
+            <button ondblclick="cavar('A', 3)" onclick="colocarBandeira('A', 3)" class="botao_mina" id="A3" disabled="true"></button>
+            <button ondblclick="cavar('A', 4)" onclick="colocarBandeira('A', 4)" class="botao_mina" id="A4" disabled="true"></button>
+            <button ondblclick="cavar('A', 5)" onclick="colocarBandeira('A', 5)" class="botao_mina" id="A5" disabled="true"></button>
+            <button ondblclick="cavar('A', 6)" onclick="colocarBandeira('A', 6)" class="botao_mina" id="A6" disabled="true"></button>
+            <button ondblclick="cavar('A', 7)" onclick="colocarBandeira('A', 7)" class="botao_mina" id="A7" disabled="true"></button>
+            <button ondblclick="cavar('A', 8)" onclick="colocarBandeira('A', 8)" class="botao_mina" id="A8" disabled="true"></button>
+            <button ondblclick="cavar('A', 9)" onclick="colocarBandeira('A', 9)" class="botao_mina" id="A9" disabled="true"></button>
+            <button ondblclick="cavar('A', 10)" onclick="colocarBandeira('A', 10)" class="botao_mina" id="A10" disabled="true"></button>
+            <button ondblclick="cavar('A', 11)" onclick="colocarBandeira('A', 11)" class="botao_mina" id="A11" disabled="true"></button>
+            <button ondblclick="cavar('A', 12)" onclick="colocarBandeira('A', 12)" class="botao_mina" id="A12" disabled="true"></button>
+            <button ondblclick="cavar('A', 13)" onclick="colocarBandeira('A', 13)" class="botao_mina" id="A13" disabled="true"></button>
+            <button ondblclick="cavar('A', 14)" onclick="colocarBandeira('A', 14)" class="botao_mina" id="A14" disabled="true"></button>
+        </div>
+
+        <!--Linha B-->
+        <div>
+            <button ondblclick="cavar('B', 1)" onclick="colocarBandeira('B', 1)" class="botao_mina" id="B1" disabled="true"></button>
+            <button ondblclick="cavar('B', 2)" onclick="colocarBandeira('B', 2)" class="botao_mina" id="B2" disabled="true"></button>
+            <button ondblclick="cavar('B', 3)" onclick="colocarBandeira('B', 3)" class="botao_mina" id="B3" disabled="true"></button>
+            <button ondblclick="cavar('B', 4)" onclick="colocarBandeira('B', 4)" class="botao_mina" id="B4" disabled="true"></button>
+            <button ondblclick="cavar('B', 5)" onclick="colocarBandeira('B', 5)" class="botao_mina" id="B5" disabled="true"></button>
+            <button ondblclick="cavar('B', 6)" onclick="colocarBandeira('B', 6)" class="botao_mina" id="B6" disabled="true"></button>
+            <button ondblclick="cavar('B', 7)" onclick="colocarBandeira('B', 7)" class="botao_mina" id="B7" disabled="true"></button>
+            <button ondblclick="cavar('B', 8)" onclick="colocarBandeira('B', 8)" class="botao_mina" id="B8" disabled="true"></button>
+            <button ondblclick="cavar('B', 9)" onclick="colocarBandeira('B', 9)" class="botao_mina" id="B9" disabled="true"></button>
+            <button ondblclick="cavar('B', 10)" onclick="colocarBandeira('B', 10)" class="botao_mina" id="B10" disabled="true"></button>
+            <button ondblclick="cavar('B', 11)" onclick="colocarBandeira('B', 11)" class="botao_mina" id="B11" disabled="true"></button>
+            <button ondblclick="cavar('B', 12)" onclick="colocarBandeira('B', 12)" class="botao_mina" id="B12" disabled="true"></button>
+            <button ondblclick="cavar('B', 13)" onclick="colocarBandeira('B', 13)" class="botao_mina" id="B13" disabled="true"></button>
+            <button ondblclick="cavar('B', 14)" onclick="colocarBandeira('B', 14)" class="botao_mina" id="B14" disabled="true"></button>
+        </div>
+
+        <!--Linha C-->
+        <div>
+            <button ondblclick="cavar('C', 1)" onclick="colocarBandeira('C', 1)" class="botao_mina" id="C1" disabled="true"></button>
+            <button ondblclick="cavar('C', 2)" onclick="colocarBandeira('C', 2)" class="botao_mina" id="C2" disabled="true"></button>
+            <button ondblclick="cavar('C', 3)" onclick="colocarBandeira('C', 3)" class="botao_mina" id="C3" disabled="true"></button>
+            <button ondblclick="cavar('C', 4)" onclick="colocarBandeira('C', 4)" class="botao_mina" id="C4" disabled="true"></button>
+            <button ondblclick="cavar('C', 5)" onclick="colocarBandeira('C', 5)" class="botao_mina" id="C5" disabled="true"></button>
+            <button ondblclick="cavar('C', 6)" onclick="colocarBandeira('C', 6)" class="botao_mina" id="C6" disabled="true"></button>
+            <button ondblclick="cavar('C', 7)" onclick="colocarBandeira('C', 7)" class="botao_mina" id="C7" disabled="true"></button>
+            <button ondblclick="cavar('C', 8)" onclick="colocarBandeira('C', 8)" class="botao_mina" id="C8" disabled="true"></button>
+            <button ondblclick="cavar('C', 9)" onclick="colocarBandeira('C', 9)" class="botao_mina" id="C9" disabled="true"></button>
+            <button ondblclick="cavar('C', 10)" onclick="colocarBandeira('C', 10)" class="botao_mina" id="C10" disabled="true"></button>
+            <button ondblclick="cavar('C', 11)" onclick="colocarBandeira('C', 11)" class="botao_mina" id="C11" disabled="true"></button>
+            <button ondblclick="cavar('C', 12)" onclick="colocarBandeira('C', 12)" class="botao_mina" id="C12" disabled="true"></button>
+            <button ondblclick="cavar('C', 13)" onclick="colocarBandeira('C', 13)" class="botao_mina" id="C13" disabled="true"></button>
+            <button ondblclick="cavar('C', 14)" onclick="colocarBandeira('C', 14)" class="botao_mina" id="C14" disabled="true"></button>
+        </div>
+
+        <!--Linha D-->
+        <div>
+            <button ondblclick="cavar('D', 1)" onclick="colocarBandeira('D', 1)" class="botao_mina" id="D1" disabled="true"></button>
+            <button ondblclick="cavar('D', 2)" onclick="colocarBandeira('D', 2)" class="botao_mina" id="D2" disabled="true"></button>
+            <button ondblclick="cavar('D', 3)" onclick="colocarBandeira('D', 3)" class="botao_mina" id="D3" disabled="true"></button>
+            <button ondblclick="cavar('D', 4)" onclick="colocarBandeira('D', 4)" class="botao_mina" id="D4" disabled="true"></button>
+            <button ondblclick="cavar('D', 5)" onclick="colocarBandeira('D', 5)" class="botao_mina" id="D5" disabled="true"></button>
+            <button ondblclick="cavar('D', 6)" onclick="colocarBandeira('D', 6)" class="botao_mina" id="D6" disabled="true"></button>
+            <button ondblclick="cavar('D', 7)" onclick="colocarBandeira('D', 7)" class="botao_mina" id="D7" disabled="true"></button>
+            <button ondblclick="cavar('D', 8)" onclick="colocarBandeira('D', 8)" class="botao_mina" id="D8" disabled="true"></button>
+            <button ondblclick="cavar('D', 9)" onclick="colocarBandeira('D', 9)" class="botao_mina" id="D9" disabled="true"></button>
+            <button ondblclick="cavar('D', 10)" onclick="colocarBandeira('D', 10)" class="botao_mina" id="D10" disabled="true"></button>
+            <button ondblclick="cavar('D', 11)" onclick="colocarBandeira('D', 11)" class="botao_mina" id="D11" disabled="true"></button>
+            <button ondblclick="cavar('D', 12)" onclick="colocarBandeira('D', 12)" class="botao_mina" id="D12" disabled="true"></button>
+            <button ondblclick="cavar('D', 13)" onclick="colocarBandeira('D', 13)" class="botao_mina" id="D13" disabled="true"></button>
+            <button ondblclick="cavar('D', 14)" onclick="colocarBandeira('D', 14)" class="botao_mina" id="D14" disabled="true"></button>
+        </div>
+
+        <!--Linha E-->
+        <div>
+            <button ondblclick="cavar('E', 1)" onclick="colocarBandeira('E', 1)" class="botao_mina" id="E1" disabled="true"></button>
+            <button ondblclick="cavar('E', 2)" onclick="colocarBandeira('E', 2)" class="botao_mina" id="E2" disabled="true"></button>
+            <button ondblclick="cavar('E', 3)" onclick="colocarBandeira('E', 3)" class="botao_mina" id="E3" disabled="true"></button>
+            <button ondblclick="cavar('E', 4)" onclick="colocarBandeira('E', 4)" class="botao_mina" id="E4" disabled="true"></button>
+            <button ondblclick="cavar('E', 5)" onclick="colocarBandeira('E', 5)" class="botao_mina" id="E5" disabled="true"></button>
+            <button ondblclick="cavar('E', 6)" onclick="colocarBandeira('E', 6)" class="botao_mina" id="E6" disabled="true"></button>
+            <button ondblclick="cavar('E', 7)" onclick="colocarBandeira('E', 7)" class="botao_mina" id="E7" disabled="true"></button>
+            <button ondblclick="cavar('E', 8)" onclick="colocarBandeira('E', 8)" class="botao_mina" id="E8" disabled="true"></button>
+            <button ondblclick="cavar('E', 9)" onclick="colocarBandeira('E', 9)" class="botao_mina" id="E9" disabled="true"></button>
+            <button ondblclick="cavar('E', 10)" onclick="colocarBandeira('E', 10)" class="botao_mina" id="E10" disabled="true"></button>
+            <button ondblclick="cavar('E', 11)" onclick="colocarBandeira('E', 11)" class="botao_mina" id="E11" disabled="true"></button>
+            <button ondblclick="cavar('E', 12)" onclick="colocarBandeira('E', 12)" class="botao_mina" id="E12" disabled="true"></button>
+            <button ondblclick="cavar('E', 13)" onclick="colocarBandeira('E', 13)" class="botao_mina" id="E13" disabled="true"></button>
+            <button ondblclick="cavar('E', 14)" onclick="colocarBandeira('E', 14)" class="botao_mina" id="E14" disabled="true"></button>
+        </div>
+
+        <!--Linha F-->
+        <div>
+            <button ondblclick="cavar('F', 1)" onclick="colocarBandeira('F', 1)" class="botao_mina" id="F1" disabled="true"></button>
+            <button ondblclick="cavar('F', 2)" onclick="colocarBandeira('F', 2)" class="botao_mina" id="F2" disabled="true"></button>
+            <button ondblclick="cavar('F', 3)" onclick="colocarBandeira('F', 3)" class="botao_mina" id="F3" disabled="true"></button>
+            <button ondblclick="cavar('F', 4)" onclick="colocarBandeira('F', 4)" class="botao_mina" id="F4" disabled="true"></button>
+            <button ondblclick="cavar('F', 5)" onclick="colocarBandeira('F', 5)" class="botao_mina" id="F5" disabled="true"></button>
+            <button ondblclick="cavar('F', 6)" onclick="colocarBandeira('F', 6)" class="botao_mina" id="F6" disabled="true"></button>
+            <button ondblclick="cavar('F', 7)" onclick="colocarBandeira('F', 7)" class="botao_mina" id="F7" disabled="true"></button>
+            <button ondblclick="cavar('F', 8)" onclick="colocarBandeira('F', 8)" class="botao_mina" id="F8" disabled="true"></button>
+            <button ondblclick="cavar('F', 9)" onclick="colocarBandeira('F', 9)" class="botao_mina" id="F9" disabled="true"></button>
+            <button ondblclick="cavar('F', 10)" onclick="colocarBandeira('F', 10)" class="botao_mina" id="F10" disabled="true"></button>
+            <button ondblclick="cavar('F', 11)" onclick="colocarBandeira('F', 11)" class="botao_mina" id="F11" disabled="true"></button>
+            <button ondblclick="cavar('F', 12)" onclick="colocarBandeira('F', 12)" class="botao_mina" id="F12" disabled="true"></button>
+            <button ondblclick="cavar('F', 13)" onclick="colocarBandeira('F', 13)" class="botao_mina" id="F13" disabled="true"></button>
+            <button ondblclick="cavar('F', 14)" onclick="colocarBandeira('F', 14)" class="botao_mina" id="F14" disabled="true"></button>
+        </div>
+
+        <!--Linha G-->
+        <div>
+            <button ondblclick="cavar('G', 1)" onclick="colocarBandeira('G', 1)" class="botao_mina" id="G1" disabled="true"></button>
+            <button ondblclick="cavar('G', 2)" onclick="colocarBandeira('G', 2)" class="botao_mina" id="G2" disabled="true"></button>
+            <button ondblclick="cavar('G', 3)" onclick="colocarBandeira('G', 3)" class="botao_mina" id="G3" disabled="true"></button>
+            <button ondblclick="cavar('G', 4)" onclick="colocarBandeira('G', 4)" class="botao_mina" id="G4" disabled="true"></button>
+            <button ondblclick="cavar('G', 5)" onclick="colocarBandeira('G', 5)" class="botao_mina" id="G5" disabled="true"></button>
+            <button ondblclick="cavar('G', 6)" onclick="colocarBandeira('G', 6)" class="botao_mina" id="G6" disabled="true"></button>
+            <button ondblclick="cavar('G', 7)" onclick="colocarBandeira('G', 7)" class="botao_mina" id="G7" disabled="true"></button>
+            <button ondblclick="cavar('G', 8)" onclick="colocarBandeira('G', 8)" class="botao_mina" id="G8" disabled="true"></button>
+            <button ondblclick="cavar('G', 9)" onclick="colocarBandeira('G', 9)" class="botao_mina" id="G9" disabled="true"></button>
+            <button ondblclick="cavar('G', 10)" onclick="colocarBandeira('G', 10)" class="botao_mina" id="G10" disabled="true"></button>
+            <button ondblclick="cavar('G', 11)" onclick="colocarBandeira('G', 11)" class="botao_mina" id="G11" disabled="true"></button>
+            <button ondblclick="cavar('G', 12)" onclick="colocarBandeira('G', 12)" class="botao_mina" id="G12" disabled="true"></button>
+            <button ondblclick="cavar('G', 13)" onclick="colocarBandeira('G', 13)" class="botao_mina" id="G13" disabled="true"></button>
+            <button ondblclick="cavar('G', 14)" onclick="colocarBandeira('G', 14)" class="botao_mina" id="G14" disabled="true"></button>
+        </div>
+    </fieldset>
+
+    <script src="js/funcoes.js"></script>
+    <div style="margin-top: 15px;">
+        <img id="imagem_bandeira" width="50px"><label style="font-size: 30px; color: #b7b0a6;" id="bandeiras_faltando"></label>
+    </div>
+</body>
+</html>
