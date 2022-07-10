@@ -1,7 +1,7 @@
 var letras = ["A","B","C","D","E","F","G"], numeros = {"A": 0, "B": 1, "C": 2, "D": 3, "E": 4, "F": 5, "G": 6}, bandeirasAtivas = {}, lacunasEncontradas = {}, bombasLocalizacao = {};
-var quantidadeDeBombas = 30, quantidadeDeLacunas, quantidadeDeBandeiras, contagem;
+var quantidadeDeBombas = 16, quantidadeDeLacunas, quantidadeDeBandeiras, contagem;
 
-function mostrarBombas()
+function mostrarBombas(vitoria)
 {
     for(var coluna = 1; coluna <= 14; coluna++)
     {
@@ -9,8 +9,16 @@ function mostrarBombas()
         {
             if(bombasLocalizacao[letras[linha] + coluna] == true)
             {
-                var botao = document.querySelector(`#${letras[linha]+coluna}`);
-                botao.style.background = "url(images/bomba90x90.png) #3b1904";
+                if(vitoria == true)
+                {
+                    var botao = document.querySelector(`#${letras[linha]+coluna}`);
+                    botao.style.background = "url(images/bomba90x90.png) #1C3144";
+                }
+                else
+                {
+                    var botao = document.querySelector(`#${letras[linha]+coluna}`);
+                    botao.style.background = "url(images/bomba90x90.png) #85200E";
+                }
             }
         }
     }
@@ -41,7 +49,7 @@ function acionarBombas()
     
     while(contagem < quantidadeDeBombas)
     {
-        for(var coluna = 14; coluna >= 8; coluna--)
+        for(var coluna = 8; coluna <= 14; coluna++)
         {
             for(var linha = 0; linha <= 6; linha++)
             {
@@ -139,21 +147,25 @@ function verificarArredores(linha, coluna)
         direcoes.push(letras[numeros[linha]] + (coluna + 1));
     }
 
+    console.log(linha+coluna)
     console.log("🚀 ~ file: funcoes.js ~ line 145 ~ direcoes", direcoes);
     return direcoes;
 }
 
 function finalizarJogo(vitoria)
 {
+    
     if(vitoria == true)
     {
+        mostrarBombas(vitoria);
         alert("Parabéns!!! Você Venceu!!");
     }
     else
     {
+        mostrarBombas(vitoria);
         alert("Fim de Jogo!!! Você encontrou um bomba!");
     }
-
+    
     document.getElementById("bandeiras_faltando").innerHTML = "";
     document.getElementById("imagem_bandeira").src = "";
 
@@ -172,12 +184,11 @@ function cavar(linha, coluna)
 {
     if(bombasLocalizacao[linha + coluna] == true)
     {
-        mostrarBombas();
         finalizarJogo(false);
     }
     else
     {
-        if(bandeirasAtivas[linha+coluna]==true)
+        if(bandeirasAtivas[linha+coluna] == true)
         {
             quantidadeDeBandeiras--;
         }
@@ -185,14 +196,39 @@ function cavar(linha, coluna)
         lacunasEncontradas[linha+coluna] = true;
         quantidadeDeLacunas--;
 
+        if(quantidadeDeLacunas == 0)
+        {
+            finalizarJogo(true);
+        }
+
         var direcoes = verificarArredores(linha, coluna);
         var quantidadeBombasAoRedor = verificarBombas(direcoes);
         
         document.getElementById(linha+coluna).disabled = true;
-        console.log(quantidadeBombasAoRedor);
         
         switch(quantidadeBombasAoRedor)
         {   
+            case 0:
+                document.getElementById(linha+coluna).style.background = "#441C0E";
+                
+                for(var contagem = 0; contagem < direcoes.length; contagem++)
+                {
+                    var coordenada = direcoes[contagem].split("");
+
+                    if(coordenada.length == 3)
+                    {
+                        var ultimo_numero = coordenada[1] + coordenada[2];
+                        coordenada[1] = ultimo_numero;
+                    }
+                    
+                    if(lacunasEncontradas[coordenada[0] + coordenada[1]] == false && bombasLocalizacao[coordenada[0] + coordenada[1]] == false)
+                    {
+                        console.log("🚀 ~ file: funcoes.js ~ line 207 ~ coordenada", coordenada)
+                        cavar(coordenada[0], coordenada[1]);
+                    }
+                }
+                break;
+
             case 1:
                 document.getElementById(linha+coluna).style.background = "url('images/numero1.png') #441C0E";
                 break;
@@ -224,19 +260,6 @@ function cavar(linha, coluna)
             case 8:
                 document.getElementById(linha+coluna).style.background = "url('images/numero8.png') #441C0E";
                 break;
-            
-            default:
-                document.getElementById(linha+coluna).style.background = "#441C0E";
-                
-                for(var contagem = 1; contagem <= direcoes.length; contagem++)
-                {
-                    var coordenada = direcoes[contagem].split('');
-                    
-                    if(lacunasEncontradas[coordenada[0]+coordenada[1]] == false && bombasLocalizacao[coordenada[0]+coordenada[1]] == false)
-                    {
-                        cavar(coordenada[0], coordenada[1]);
-                    }
-                }
         }
     }
 }
@@ -245,8 +268,8 @@ function iniciarJogo()
 {
     document.getElementById("play").disabled = true;
     alert("Bem Vindo ao Campo Minado!! Seu objetivo é abrir todas as lacunas sem encontrar uma bomba! Boa sorte!!");
-    quantidadeDeLacunas = 68;
-    quantidadeDeBandeiras = 30;
+    quantidadeDeLacunas = 82;
+    quantidadeDeBandeiras = 16;
     contagem = 0;
 
     document.getElementById("bandeiras_faltando").innerHTML = quantidadeDeBandeiras;
