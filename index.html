@@ -9,16 +9,21 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
+    <!--Título: Campo Minado-->
     <div>
         <h1 id="titulo">Campo Minado</h1>
         <img src="images/bomba.png" style="margin-left: 5px;">
     </div>
-
+    
+    <!--Botão: Play-->
     <button id="play" onclick="iniciarJogo()">
         <img src="images/play.png" width="30px" alt="">
     </button>
 
+    <!--Imagem de Instrução-->
     <img src="images/instrucao.png" alt="" style="position: absolute; right: 0.5%; top: 39vh;">
+    
+    <!--Fieldset: Campo Principal-->
     <fieldset id="campo_principal">
         
         <!--Linha A-->
@@ -148,9 +153,7 @@
         </div>
     </fieldset>
 
+    <!--Chamando arquivo funcoes.js-->
     <script src="js/funcoes.js"></script>
-    <div style="margin-top: 15px;">
-        <img id="imagem_bandeira" width="50px"><label style="font-size: 30px; color: #b7b0a6;" id="bandeiras_faltando"></label>
-    </div>
 </body>
 </html>
