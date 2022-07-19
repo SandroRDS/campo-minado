@@ -16,11 +16,13 @@ function mostrarBombas(vitoria)
                 {
                     var botao = document.querySelector(`#${letras[linha]+coluna}`);
                     botao.style.background = "url(images/bomba90x90.png) #1C3144";
+                    botao.style.backgroundSize = "100% 100%";
                 }
                 else //DERROTA -> BOMBAS COM FUNDO VERMELHO
                 {
                     var botao = document.querySelector(`#${letras[linha]+coluna}`);
                     botao.style.background = "url(images/bomba90x90.png) #85200E";
+                    botao.style.backgroundSize = "100% 100%";
                 }
             }
         }
@@ -78,6 +80,7 @@ function colocarBandeira(linha, coluna)
     {
         var botao = document.querySelector(`#${linha+coluna}`);
         botao.style.background = "url(images/bandeira.png) #683416";
+        botao.style.backgroundSize = "100% 100%";
         bandeirasAtivas[linha + coluna] = true;
         quantidadeDeBandeiras--;
     }
@@ -243,41 +246,49 @@ function cavar(linha, coluna)
             //1 BOMBA AO REDOR
             case 1:
                 document.getElementById(linha+coluna).style.background = "url('images/numero1.png') #441C0E";
+                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
                 break;
             
             //2 BOMBAS AO REDOR
             case 2:
                 document.getElementById(linha+coluna).style.background = "url('images/numero2.png') #441C0E";
+                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
                 break;
             
             //3 BOMBAS AO REDOR
             case 3:
                 document.getElementById(linha+coluna).style.background = "url('images/numero3.png') #441C0E";
+                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
                 break;
 
             //4 BOMBAS AO REDOR
             case 4:
                 document.getElementById(linha+coluna).style.background = "url('images/numero4.png') #441C0E";
+                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
                 break;
 
             //5 BOMBAS AO REDOR
             case 5:
                 document.getElementById(linha+coluna).style.background = "url('images/numero5.png') #441C0E";
+                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
                 break;
 
             //6 BOMBAS AO REDOR
             case 6:
                 document.getElementById(linha+coluna).style.background = "url('images/numero6.png') #441C0E";
+                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
                 break;
 
             //7 BOMBAS AO REDOR
             case 7:
                 document.getElementById(linha+coluna).style.background = "url('images/numero7.png') #441C0E";
+                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
                 break;
 
             //8 BOMBAS AO REDOR
             case 8:
                 document.getElementById(linha+coluna).style.background = "url('images/numero8.png') #441C0E";
+                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
                 break;
         }
     }
