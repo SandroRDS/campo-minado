@@ -1,188 +1,46 @@
-var letras = ["A","B","C","D","E","F","G"], numeros = {"A": 0, "B": 1, "C": 2, "D": 3, "E": 4, "F": 5, "G": 6}, bandeirasAtivas = {}, lacunasEncontradas = {}, bombasLocalizacao = {};
-var quantidadeDeBombas = 16, quantidadeDeBandeiras, quantidadeDeLacunas, contagem;
+var letras = ["A","B","C","D","E","F","G"];
+var numeros = {"A": 0, "B": 1, "C": 2, "D": 3, "E": 4, "F": 5, "G": 6}; 
+var bandeirasAtivas = {}, lacunasEncontradas = {}, bombasLocalizacao = {};
+var quantidadeDeBombas = 16;
+var quantidadeDeBandeiras, quantidadeDeLacunas, contagem;
 var contadorBandeiras = document.querySelector("#bandeiras_quantidade");
 
-//FUNÇÃO: MOSTRAR LOCALIZAÇÃO DAS BOMBAS APÓS VITÓRIA/DERROTA
-function mostrarBombas(vitoria)
+
+//FUNÇÃO: INICIAR O JOGO
+function iniciarJogo()
 {
+    //DESABILITANDO O BOTÃO PLAY
+    document.getElementById("play").disabled = true;
+
+    //MOSTRANDO O CONTADOR DE BANDEIRAS
+    document.getElementById("contador_bandeiras").style.display = "block";
+    
+    //MENSAGEM DE INTRODUÇÃO
+    alert("Bem Vindo ao Campo Minado!! Seu objetivo é cavar todas as lacunas sem encontrar uma bomba! Boa sorte!!");
+    
+    //RESET DE VARIÁVEIS
+    quantidadeDeLacunas = 82;
+    contagem = 0;
+    quantidadeDeBandeiras = 16;
+
+    contadorBandeiras.innerHTML = quantidadeDeBandeiras;
+
     for(var coluna = 1; coluna <= 14; coluna++)
     {
         for(var linha = 0; linha <= 6; linha++)
         {
-            if(bombasLocalizacao[letras[linha] + coluna])
-            {
-                //VITÓRIA -> BOMBAS COM FUNDO AZUL
-                if(vitoria)
-                {
-                    var botao = document.querySelector(`#${letras[linha]+coluna}`);
-                    botao.style.background = "url(images/bomba90x90.png) #1C3144";
-                    botao.style.backgroundSize = "100% 100%";
-                }
-                else //DERROTA -> BOMBAS COM FUNDO VERMELHO
-                {
-                    var botao = document.querySelector(`#${letras[linha]+coluna}`);
-                    botao.style.background = "url(images/bomba90x90.png) #85200E";
-                    botao.style.backgroundSize = "100% 100%";
-                }
-            }
-        }
-    }
-}
-
-
-//FUNÇÃO: DISTRIBUINDO BOMBAS EM LACUNAS ALEATÓRIAS
-function acionarBombas()
-{
-    //DISTRIBUIÇÃO DE BOMBAS DA COLUNA 1 ATÉ 7
-    while(contagem < quantidadeDeBombas/2)
-    {
-        for(var coluna = 1; coluna <= 7; coluna++)
-        {
-            for(var linha = 0; linha <= 6; linha++)
-            {
-                //SELECIONANDO ALEATORIAMENTE O NÚMERO 0 OU 1 PARA DETERMINAR SE A LACUNA TERÁ UMA BOMBA OU NÃO
-                var numeroAleatorio = Math.floor(Math.random() * 2) == 0 ? false : true;
-                
-                if((contagem < quantidadeDeBombas/2) && numeroAleatorio)
-                {
-                    bombasLocalizacao[letras[linha] + coluna] = true;
-                    contagem++;
-                }
-            }    
-        }
-    }
-    
-    //DISTRIBUIÇÃO DE BOMBAS DA COLUNA 8 ATÉ 14
-    while(contagem < quantidadeDeBombas)
-    {
-        for(var coluna = 8; coluna <= 14; coluna++)
-        {
-            for(var linha = 0; linha <= 6; linha++)
-            {
-                //SELECIONANDO ALEATORIAMENTE O NÚMERO 0 OU 1 PARA DETERMINAR SE A LACUNA TERÁ UMA BOMBA OU NÃO
-                var numeroAleatorio = Math.floor(Math.random() * 2) == 0 ? false : true;
-                
-                if((contagem < quantidadeDeBombas) && numeroAleatorio)
-                {
-                    bombasLocalizacao[letras[linha] + coluna] = true;
-                    contagem++;
-                }
-            }
-        }
-    }
-}
-
-
-//FUNÇÃO: COLOCAR UMA BANDEIRA EM UMA LACUNA
-function colocarBandeira(evento)
-{
-    var coordenada = evento.target.id;
-
-    if(!bandeirasAtivas[coordenada]) //LACUNA SEM BANDEIRA
-    {
-        var botao = document.querySelector(`#${coordenada}`);
-        botao.style.background = "url(images/bandeira.png) #683416";
-        botao.style.backgroundSize = "100% 100%";
-        bandeirasAtivas[coordenada] = true;
-        quantidadeDeBandeiras--;
-    }
-    else //LACUNA COM BANDEIRA
-    {
-        var botao = document.querySelector(`#${coordenada}`);
-        botao.style.backgroundImage = "linear-gradient(to bottom, rgb(105, 54, 12), rgb(121, 62, 15), rgb(105, 54, 12))";
-        bandeirasAtivas[coordenada] = false;
-        quantidadeDeBandeiras++;
-    }
-
-    contadorBandeiras.innerHTML = quantidadeDeBandeiras;
-
-    if(quantidadeDeBandeiras < 0)
-    {
-        contadorBandeiras.style.color = '#df2222';
-    }
-    else
-    {
-        contadorBandeiras.style.color = 'antiquewhite';
-    }
-
-    return false;
-}
-
-
-//FUNÇÃO: VERIFICAR E RETORNAR QUANTAS BOMBAS TEM AO REDOR DE UM LACUNA
-function verificarBombas(direcoes)
-{
-    var quantidadeBombasAoRedor = 0;
-
-    for(var contagem = 0; contagem < direcoes.length; contagem++)
-    {
-        if(bombasLocalizacao[direcoes[contagem]])
-        {
-            quantidadeBombasAoRedor++;
+            document.getElementById(letras[linha]+coluna).disabled = false;
+            document.getElementById(letras[linha]+coluna).oncontextmenu = colocarBandeira;
+            document.getElementById(letras[linha]+coluna).onclick = cavar;
+            document.getElementById(letras[linha]+coluna).style.backgroundImage = "linear-gradient(to bottom, rgb(105, 54, 12), rgb(121, 62, 15), rgb(105, 54, 12))";
+            lacunasEncontradas[letras[linha] + coluna] = false;
+            bombasLocalizacao[letras[linha] + coluna] = false;
+            bandeirasAtivas[letras[linha] + coluna] = false;
         }
     }
 
-    return quantidadeBombasAoRedor;
-}
-
-
-//FUNÇÃO: VERIFICAR E RETORNAR AS COORDENADAS DAS LACUNAS ADJACENTES
-function verificarArredores(coordenada)
-{   
-    var direcoes = [];
-    coordenada = coordenada.split("");
-
-    var linha = coordenada[0];
-    var coluna = coordenada.length >= 3 ? parseInt(coordenada[1]+coordenada[2]) : parseInt(coordenada[1]);
-
-    if(numeros[linha] > 0) //LACUNA NÃO ESTÁ NA PRIMEIRA LINHA
-    {
-        //NORTE
-        direcoes.push(letras[(numeros[linha] - 1)] + (coluna));
-
-        if(coluna > 1) //LACUNA NÃO ESTÁ NA PRIMEIRA COLUNA
-        {
-            //NOROESTE
-            direcoes.push(letras[(numeros[linha] - 1)] + (coluna - 1));
-        }
-
-        if(coluna < 14) //LACUNA NÃO ESTÁ NA ÚLTIMA COLUNA
-        {
-            //NORDESTE
-            direcoes.push(letras[(numeros[linha] - 1)] + (coluna + 1));
-        }
-    }
-
-    if(numeros[linha] < 6) //LACUNA NÃO ESTÁ NA ÚLTIMA LINHA
-    {
-        //SUL
-        direcoes.push(letras[(numeros[linha] + 1)] + (coluna));
-
-        if(coluna > 1) //LACUNA NÃO ESTÁ NA PRIMEIRA COLUNA
-        {
-            //SUDOESTE
-            direcoes.push(letras[(numeros[linha] + 1)] + (coluna - 1));
-        }
-        if(coluna < 14) //LACUNA NÃO ESTÁ NA ÚLTIMA COLUNA
-        {
-            //SUDESTE
-            direcoes.push(letras[(numeros[linha] + 1)] + (coluna + 1));
-        }
-    }
-
-    if(coluna > 1) //LACUNA NÃO ESTÁ NA PRIMEIRA COLUNA
-    {
-        //OESTE
-        direcoes.push(letras[numeros[linha]] + (coluna - 1));
-    }
-
-    if(coluna < 14) //LACUNA NÃO ESTÁ NA ÚLTIMA COLUNA
-    {
-        //LESTE
-        direcoes.push(letras[numeros[linha]] + (coluna + 1));
-    }
-
-    return direcoes;
+    //CHAMANDO A FUNÇÃO PARA DISTRUIBUIR BOMBAS ALEATÓRIAMENTE PELAS LACUNAS
+    acionarBombas();
 }
 
 
@@ -213,9 +71,11 @@ function finalizarJogo(vitoria)
     document.getElementById("play").disabled = false;
 }
 
+
 //FUNÇÃO: CAVAR EM UMA LACUNA
 function cavar(evento)
 {
+    //CAPTURANDO O ID DO ELEMENTO CLICADO
     var coordenada = evento.target.id;
 
     if(!bandeirasAtivas[coordenada])
@@ -310,43 +170,188 @@ function cavar(evento)
             }
         }
     }
-
 }
 
 
-//FUNÇÃO: INICIAR O JOGO
-function iniciarJogo()
+//FUNÇÃO: COLOCAR UMA BANDEIRA EM UMA LACUNA
+function colocarBandeira(evento)
 {
-    //DESABILITANDO O BOTÃO PLAY
-    document.getElementById("play").disabled = true;
+    var coordenada = evento.target.id;
 
-    //MOSTRANDO O CONTADOR DE BANDEIRAS
-    document.getElementById("contador_bandeiras").style.display = "block";
-    
-    //MENSAGEM DE INTRODUÇÃO
-    alert("Bem Vindo ao Campo Minado!! Seu objetivo é cavar todas as lacunas sem encontrar uma bomba! Boa sorte!!");
-    
-    //RESET DE VARIÁVEIS
-    quantidadeDeLacunas = 82;
-    contagem = 0;
-    quantidadeDeBandeiras = 16;
+    if(!bandeirasAtivas[coordenada]) //LACUNA SEM BANDEIRA
+    {
+        var botao = document.querySelector(`#${coordenada}`);
+        botao.style.background = "url(images/bandeira.png) #683416";
+        botao.style.backgroundSize = "100% 100%";
+        bandeirasAtivas[coordenada] = true;
+        quantidadeDeBandeiras--;
+    }
+    else //LACUNA COM BANDEIRA
+    {
+        var botao = document.querySelector(`#${coordenada}`);
+        botao.style.backgroundImage = "linear-gradient(to bottom, rgb(105, 54, 12), rgb(121, 62, 15), rgb(105, 54, 12))";
+        bandeirasAtivas[coordenada] = false;
+        quantidadeDeBandeiras++;
+    }
 
     contadorBandeiras.innerHTML = quantidadeDeBandeiras;
 
+    if(quantidadeDeBandeiras < 0)
+    {
+        contadorBandeiras.style.color = '#df2222';
+    }
+    else
+    {
+        contadorBandeiras.style.color = 'antiquewhite';
+    }
+
+    return false;
+}
+
+
+//FUNÇÃO: VERIFICAR E RETORNAR AS COORDENADAS DAS LACUNAS ADJACENTES
+function verificarArredores(coordenada)
+{   
+    var direcoes = [];
+    coordenada = coordenada.split("");
+
+    var linha = coordenada[0];
+    var coluna = coordenada.length >= 3 ? parseInt(coordenada[1]+coordenada[2]) : parseInt(coordenada[1]);
+
+    if(numeros[linha] > 0) //LACUNA NÃO ESTÁ NA PRIMEIRA LINHA
+    {
+        //NORTE
+        direcoes.push(letras[(numeros[linha] - 1)] + (coluna));
+
+        if(coluna > 1) //LACUNA NÃO ESTÁ NA PRIMEIRA COLUNA
+        {
+            //NOROESTE
+            direcoes.push(letras[(numeros[linha] - 1)] + (coluna - 1));
+        }
+
+        if(coluna < 14) //LACUNA NÃO ESTÁ NA ÚLTIMA COLUNA
+        {
+            //NORDESTE
+            direcoes.push(letras[(numeros[linha] - 1)] + (coluna + 1));
+        }
+    }
+
+    if(numeros[linha] < 6) //LACUNA NÃO ESTÁ NA ÚLTIMA LINHA
+    {
+        //SUL
+        direcoes.push(letras[(numeros[linha] + 1)] + (coluna));
+
+        if(coluna > 1) //LACUNA NÃO ESTÁ NA PRIMEIRA COLUNA
+        {
+            //SUDOESTE
+            direcoes.push(letras[(numeros[linha] + 1)] + (coluna - 1));
+        }
+        if(coluna < 14) //LACUNA NÃO ESTÁ NA ÚLTIMA COLUNA
+        {
+            //SUDESTE
+            direcoes.push(letras[(numeros[linha] + 1)] + (coluna + 1));
+        }
+    }
+
+    if(coluna > 1) //LACUNA NÃO ESTÁ NA PRIMEIRA COLUNA
+    {
+        //OESTE
+        direcoes.push(letras[numeros[linha]] + (coluna - 1));
+    }
+
+    if(coluna < 14) //LACUNA NÃO ESTÁ NA ÚLTIMA COLUNA
+    {
+        //LESTE
+        direcoes.push(letras[numeros[linha]] + (coluna + 1));
+    }
+
+    return direcoes;
+}
+
+
+//FUNÇÃO: VERIFICAR E RETORNAR QUANTAS BOMBAS TEM AO REDOR DE UM LACUNA
+function verificarBombas(direcoes)
+{
+    var quantidadeBombasAoRedor = 0;
+
+    for(var contagem = 0; contagem < direcoes.length; contagem++)
+    {
+        if(bombasLocalizacao[direcoes[contagem]])
+        {
+            quantidadeBombasAoRedor++;
+        }
+    }
+
+    return quantidadeBombasAoRedor;
+}
+
+
+//FUNÇÃO: DISTRIBUINDO BOMBAS EM LACUNAS ALEATÓRIAS
+function acionarBombas()
+{
+    //DISTRIBUIÇÃO DE BOMBAS DA COLUNA 1 ATÉ 7
+    while(contagem < quantidadeDeBombas/2)
+    {
+        for(var coluna = 1; coluna <= 7; coluna++)
+        {
+            for(var linha = 0; linha <= 6; linha++)
+            {
+                //SELECIONANDO ALEATORIAMENTE O NÚMERO 0 OU 1 PARA DETERMINAR SE A LACUNA TERÁ UMA BOMBA OU NÃO
+                var numeroAleatorio = Math.floor(Math.random() * 2) == 0 ? false : true;
+                
+                if((contagem < quantidadeDeBombas/2) && numeroAleatorio)
+                {
+                    bombasLocalizacao[letras[linha] + coluna] = true;
+                    contagem++;
+                }
+            }    
+        }
+    }
+    
+    //DISTRIBUIÇÃO DE BOMBAS DA COLUNA 8 ATÉ 14
+    while(contagem < quantidadeDeBombas)
+    {
+        for(var coluna = 8; coluna <= 14; coluna++)
+        {
+            for(var linha = 0; linha <= 6; linha++)
+            {
+                //SELECIONANDO ALEATORIAMENTE O NÚMERO 0 OU 1 PARA DETERMINAR SE A LACUNA TERÁ UMA BOMBA OU NÃO
+                var numeroAleatorio = Math.floor(Math.random() * 2) == 0 ? false : true;
+                
+                if((contagem < quantidadeDeBombas) && numeroAleatorio)
+                {
+                    bombasLocalizacao[letras[linha] + coluna] = true;
+                    contagem++;
+                }
+            }
+        }
+    }
+}
+
+
+//FUNÇÃO: MOSTRAR LOCALIZAÇÃO DAS BOMBAS APÓS VITÓRIA/DERROTA
+function mostrarBombas(vitoria)
+{
     for(var coluna = 1; coluna <= 14; coluna++)
     {
         for(var linha = 0; linha <= 6; linha++)
         {
-            document.getElementById(letras[linha]+coluna).disabled = false;
-            document.getElementById(letras[linha]+coluna).oncontextmenu = colocarBandeira;
-            document.getElementById(letras[linha]+coluna).onclick = cavar;
-            document.getElementById(letras[linha]+coluna).style.backgroundImage = "linear-gradient(to bottom, rgb(105, 54, 12), rgb(121, 62, 15), rgb(105, 54, 12))";
-            lacunasEncontradas[letras[linha] + coluna] = false;
-            bombasLocalizacao[letras[linha] + coluna] = false;
-            bandeirasAtivas[letras[linha] + coluna] = false;
+            if(bombasLocalizacao[letras[linha] + coluna])
+            {
+                //VITÓRIA -> BOMBAS COM FUNDO AZUL
+                if(vitoria)
+                {
+                    var botao = document.querySelector(`#${letras[linha]+coluna}`);
+                    botao.style.background = "url(images/bomba90x90.png) #1C3144";
+                    botao.style.backgroundSize = "100% 100%";
+                }
+                else //DERROTA -> BOMBAS COM FUNDO VERMELHO
+                {
+                    var botao = document.querySelector(`#${letras[linha]+coluna}`);
+                    botao.style.background = "url(images/bomba90x90.png) #85200E";
+                    botao.style.backgroundSize = "100% 100%";
+                }
+            }
         }
     }
-
-    //CHAMANDO A FUNÇÃO PARA DISTRUIBUIR BOMBAS ALEATÓRIAMENTE PELAS LACUNAS
-    acionarBombas();
 }
