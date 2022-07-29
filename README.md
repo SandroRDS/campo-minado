@@ -8,7 +8,9 @@
 </p>
 </h1>
 
-[#APRENDI NA ALURA](https://www.alura.com)
+<p align="center"> 
+<a href="#descricao">Descrição</a> &bull; <a href="#regras">Regras do Jogo</a> &bull; <a href="#ferramentas">Ferramentas Utilizadas</a>
+</p>
 
 > &#x1F517; Link do Projeto:  
 &#x27A1; https://sandrords.github.io/campo-minado/
@@ -17,7 +19,7 @@
 
 > Status do Projeto: *Versão 1 Completa* &#10004;&#x1F6A7;
 
-## Descrição ##
+<h2 id="descricao"> Descrição </h2>
 
 O projeto consiste na construção do clássico jogo "Campo Minado", onde o jogador deve se arriscar cavando todas as lacunas seguras do mapa sem cair em nenhuma bomba. 
 
@@ -27,23 +29,34 @@ O projeto consiste na construção do clássico jogo "Campo Minado", onde o joga
 Interface do Jogo e Gameplay
 </p>
 
-## Regras do Jogo ##
+<h2 id="regras"> Regras do Jogo </h2>
 
 ### Regras Gerais ###
 
 O mapa possui 16 bombas espalhadas aleatoriamente entre as lacunas. Seu objetivo é abrir todas as lacunas seguras sem cavar nenhuma bomba no processo, caso contrário, as bombas explodem e o jogo acaba.  
-Após cavar uma lacuna segura, ela irá mostrar um número representando quantas bombas tem ao seu redor. Porém, se não houver nenhuma bomba em suas adjacências, nenhum número é mostrado e todas as lacunas ao redor são abertas automaticamente.
+Após cavar uma lacuna segura, ela irá mostrar um número representando quantas bombas tem ao seu redor. Porém, se não houver nenhuma bomba em suas adjacências, nenhum número é mostrado e todas as lacunas ao redor são abertas automaticamente:
+
+<p align=center>
+<img src="images/exemplo.png">
+<br>
+Exemplo
+</p>
+
+
 
 ### Mecânicas Básicas ###
 
-<img src="images/bandeira.png" width="30px"> **Colocar Bandeira**: *Botão Esquerdo do Mouse*
+<img src="images/bandeira.png" width="30px"> **Colocar Bandeira**: *Botão Direito do Mouse*
 <br>
-<img src="images/pa.png" width="30px"> **Cavar Lacuna**: *Duplo Clique no Botão Esquerdo do Mouse* 
+<img src="images/pa.png" width="30px"> **Cavar Lacuna**: *Botão Esquerdo do Mouse* 
 
 > #### <b> Para que servem as bandeiras? </b> ####  
 > *As bandeiras são uma ferramenta visual para auxiliar o jogador a destacar as lacunas que possuem uma bomba. Desta forma, o jogador é capaz de construir raciocínios com maior clareza, pois não precisará decorar as posições de bombas já identificadas.*
 
-## Ferramentas Utilizadas ##
+<h2 id="ferramentas"> Ferramentas Utilizadas </h2>
 
 * ***HTML*** e ***CSS***: Criação e estilização dos elementos da página
 * ***JavaScript***: Funcionamento de todo algoritmo do jogo.
+
+---
+Made by &#128153; [SandroRDS](https://www.linkedin.com/in/sandro-rosa-de-souza-02a5bb241/) &#128153; | &#x1F47E; Mais Projetos: https://github.com/SandroRDS?tab=repositories
