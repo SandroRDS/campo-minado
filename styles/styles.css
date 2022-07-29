@@ -4,6 +4,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body
 {
     font-family: 'arial';
@@ -20,6 +21,7 @@ body
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
 #campo_principal
 {
     border: 0;
@@ -53,5 +55,19 @@ body
     right              : 200px;
     top                : 10px;
     cursor             : pointer;
+}
+
+#contador_bandeiras
+{
+    margin-top: 2vh;
+    display: none;
+}
+
+#bandeiras_quantidade
+{
+    color: antiquewhite;
+    position: relative;
+    bottom: 1.5vh;
+    font-size: 18px;
 }
 

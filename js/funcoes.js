@@ -1,6 +1,6 @@
 var letras = ["A","B","C","D","E","F","G"], numeros = {"A": 0, "B": 1, "C": 2, "D": 3, "E": 4, "F": 5, "G": 6}, bandeirasAtivas = {}, lacunasEncontradas = {}, bombasLocalizacao = {};
-var quantidadeDeBombas = 16, quantidadeDeLacunas, contagem;
-
+var quantidadeDeBombas = 16, quantidadeDeBandeiras, quantidadeDeLacunas, contagem;
+var contadorBandeiras = document.querySelector("#bandeiras_quantidade");
 
 //FUNÇÃO: MOSTRAR LOCALIZAÇÃO DAS BOMBAS APÓS VITÓRIA/DERROTA
 function mostrarBombas(vitoria)
@@ -9,10 +9,10 @@ function mostrarBombas(vitoria)
     {
         for(var linha = 0; linha <= 6; linha++)
         {
-            if(bombasLocalizacao[letras[linha] + coluna] == true)
+            if(bombasLocalizacao[letras[linha] + coluna])
             {
                 //VITÓRIA -> BOMBAS COM FUNDO AZUL
-                if(vitoria == true)
+                if(vitoria)
                 {
                     var botao = document.querySelector(`#${letras[linha]+coluna}`);
                     botao.style.background = "url(images/bomba90x90.png) #1C3144";
@@ -43,7 +43,7 @@ function acionarBombas()
                 //SELECIONANDO ALEATORIAMENTE O NÚMERO 0 OU 1 PARA DETERMINAR SE A LACUNA TERÁ UMA BOMBA OU NÃO
                 var numeroAleatorio = Math.floor(Math.random() * 2) == 0 ? false : true;
                 
-                if((contagem < quantidadeDeBombas/2) && (numeroAleatorio == true))
+                if((contagem < quantidadeDeBombas/2) && numeroAleatorio)
                 {
                     bombasLocalizacao[letras[linha] + coluna] = true;
                     contagem++;
@@ -62,7 +62,7 @@ function acionarBombas()
                 //SELECIONANDO ALEATORIAMENTE O NÚMERO 0 OU 1 PARA DETERMINAR SE A LACUNA TERÁ UMA BOMBA OU NÃO
                 var numeroAleatorio = Math.floor(Math.random() * 2) == 0 ? false : true;
                 
-                if((contagem < quantidadeDeBombas) && (numeroAleatorio == true))
+                if((contagem < quantidadeDeBombas) && numeroAleatorio)
                 {
                     bombasLocalizacao[letras[linha] + coluna] = true;
                     contagem++;
@@ -74,23 +74,38 @@ function acionarBombas()
 
 
 //FUNÇÃO: COLOCAR UMA BANDEIRA EM UMA LACUNA
-function colocarBandeira(linha, coluna)
+function colocarBandeira(evento)
 {
-    if(bandeirasAtivas[linha + coluna] == false) //LACUNA SEM BANDEIRA
+    var coordenada = evento.target.id;
+
+    if(!bandeirasAtivas[coordenada]) //LACUNA SEM BANDEIRA
     {
-        var botao = document.querySelector(`#${linha+coluna}`);
+        var botao = document.querySelector(`#${coordenada}`);
         botao.style.background = "url(images/bandeira.png) #683416";
         botao.style.backgroundSize = "100% 100%";
-        bandeirasAtivas[linha + coluna] = true;
+        bandeirasAtivas[coordenada] = true;
         quantidadeDeBandeiras--;
     }
     else //LACUNA COM BANDEIRA
     {
-        var botao = document.querySelector(`#${linha+coluna}`);
+        var botao = document.querySelector(`#${coordenada}`);
         botao.style.backgroundImage = "linear-gradient(to bottom, rgb(105, 54, 12), rgb(121, 62, 15), rgb(105, 54, 12))";
-        bandeirasAtivas[linha + coluna] = false;
+        bandeirasAtivas[coordenada] = false;
         quantidadeDeBandeiras++;
     }
+
+    contadorBandeiras.innerHTML = quantidadeDeBandeiras;
+
+    if(quantidadeDeBandeiras < 0)
+    {
+        contadorBandeiras.style.color = '#df2222';
+    }
+    else
+    {
+        contadorBandeiras.style.color = 'antiquewhite';
+    }
+
+    return false;
 }
 
 
@@ -101,7 +116,7 @@ function verificarBombas(direcoes)
 
     for(var contagem = 0; contagem < direcoes.length; contagem++)
     {
-        if(bombasLocalizacao[direcoes[contagem]] == true)
+        if(bombasLocalizacao[direcoes[contagem]])
         {
             quantidadeBombasAoRedor++;
         }
@@ -112,10 +127,13 @@ function verificarBombas(direcoes)
 
 
 //FUNÇÃO: VERIFICAR E RETORNAR AS COORDENADAS DAS LACUNAS ADJACENTES
-function verificarArredores(linha, coluna)
+function verificarArredores(coordenada)
 {   
     var direcoes = [];
-    coluna = parseInt(coluna);
+    coordenada = coordenada.split("");
+
+    var linha = coordenada[0];
+    var coluna = coordenada.length >= 3 ? parseInt(coordenada[1]+coordenada[2]) : parseInt(coordenada[1]);
 
     if(numeros[linha] > 0) //LACUNA NÃO ESTÁ NA PRIMEIRA LINHA
     {
@@ -196,102 +214,103 @@ function finalizarJogo(vitoria)
 }
 
 //FUNÇÃO: CAVAR EM UMA LACUNA
-function cavar(linha, coluna)
+function cavar(evento)
 {
-    if(bombasLocalizacao[linha + coluna] == true) //ENCONTROU UMA BOMBA
+    var coordenada = evento.target.id;
+
+    if(!bandeirasAtivas[coordenada])
     {
-        finalizarJogo(false);
-    }
-    else //ABRIU UMA LACUNA SEM BOMBA
-    {
-        document.getElementById(linha+coluna).disabled = true;
-        lacunasEncontradas[linha+coluna] = true;
-        quantidadeDeLacunas--;
-        
-        if(quantidadeDeLacunas == 0) //JOGADOR ABRIU TODAS AS LACUNAS
+        if(bombasLocalizacao[coordenada]) //ENCONTROU UMA BOMBA
         {
-            finalizarJogo(true);
+            finalizarJogo(false);
         }
-        
-        //CHAMANDO A FUNÇÃO PARA RETORNAR AS COORDENADAS DAS LACUNAS ADJACENTES
-        var direcoes = verificarArredores(linha, coluna);
-
-        //CHAMANDO A FUNÇÃO PARA RETORNAR QUANTAS BOMBAS TEM AO RETOR DA LACUNA CAVADA
-        var quantidadeBombasAoRedor = verificarBombas(direcoes);
-        
-        switch(quantidadeBombasAoRedor)
+        else //ABRIU UMA LACUNA SEM BOMBA
         {
-            //NENHUMA BOMBA AO REDOR   
-            case 0:
-                document.getElementById(linha+coluna).style.background = "#441C0E";
-                
-                //CAVANDO TODAS AS LACUNAS AO REDOR QUE AINDA NÃO FORAM ESCAVADAS
-                for(var contagem = 0; contagem < direcoes.length; contagem++)
-                {
-                    var coordenada = direcoes[contagem].split("");
-
-                    //CLÁUSULA PARA PASSAR CORRETAMENTE A COORDENADA DE COLUNAS NUMERICAMENTE MAIORES QUE 2 ALGARISMOS (Coluna 10 até 14)
-                    if(coordenada.length == 3)
-                    {
-                        coordenada[1] += coordenada[2];
-                    }
+            document.getElementById(coordenada).disabled = true;
+            lacunasEncontradas[coordenada] = true;
+            quantidadeDeLacunas--;
+            
+            if(quantidadeDeLacunas == 0) //JOGADOR ABRIU TODAS AS LACUNAS
+            {
+                finalizarJogo(true);
+            }
+            
+            //CHAMANDO A FUNÇÃO PARA RETORNAR AS COORDENADAS DAS LACUNAS ADJACENTES
+            var direcoes = verificarArredores(coordenada);
+    
+            //CHAMANDO A FUNÇÃO PARA RETORNAR QUANTAS BOMBAS TEM AO RETOR DA LACUNA CAVADA
+            var quantidadeBombasAoRedor = verificarBombas(direcoes);
+            
+            switch(quantidadeBombasAoRedor)
+            {
+                //NENHUMA BOMBA AO REDOR   
+                case 0:
+                    document.getElementById(coordenada).style.background = "#441C0E";
                     
-                    if(lacunasEncontradas[coordenada[0] + coordenada[1]] == false)
+                    //CAVANDO TODAS AS LACUNAS AO REDOR QUE AINDA NÃO FORAM ESCAVADAS
+                    for(var contagem = 0; contagem < direcoes.length; contagem++)
                     {
-                        cavar(coordenada[0], coordenada[1]);
+                        var localizacao = direcoes[contagem];
+                        var botaoAdjacente = document.querySelector(`#${localizacao}`);
+                        
+                        if(!lacunasEncontradas[localizacao])
+                        {
+                            botaoAdjacente.click();
+                        }
                     }
-                }
-                break;
-            
-            //1 BOMBA AO REDOR
-            case 1:
-                document.getElementById(linha+coluna).style.background = "url('images/numero1.png') #441C0E";
-                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
-                break;
-            
-            //2 BOMBAS AO REDOR
-            case 2:
-                document.getElementById(linha+coluna).style.background = "url('images/numero2.png') #441C0E";
-                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
-                break;
-            
-            //3 BOMBAS AO REDOR
-            case 3:
-                document.getElementById(linha+coluna).style.background = "url('images/numero3.png') #441C0E";
-                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
-                break;
-
-            //4 BOMBAS AO REDOR
-            case 4:
-                document.getElementById(linha+coluna).style.background = "url('images/numero4.png') #441C0E";
-                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
-                break;
-
-            //5 BOMBAS AO REDOR
-            case 5:
-                document.getElementById(linha+coluna).style.background = "url('images/numero5.png') #441C0E";
-                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
-                break;
-
-            //6 BOMBAS AO REDOR
-            case 6:
-                document.getElementById(linha+coluna).style.background = "url('images/numero6.png') #441C0E";
-                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
-                break;
-
-            //7 BOMBAS AO REDOR
-            case 7:
-                document.getElementById(linha+coluna).style.background = "url('images/numero7.png') #441C0E";
-                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
-                break;
-
-            //8 BOMBAS AO REDOR
-            case 8:
-                document.getElementById(linha+coluna).style.background = "url('images/numero8.png') #441C0E";
-                document.getElementById(linha+coluna).style.backgroundSize = "100% 100%";
-                break;
+                    break;
+                
+                //1 BOMBA AO REDOR
+                case 1:
+                    document.getElementById(coordenada).style.background = "url('images/numero1.png') #441C0E";
+                    document.getElementById(coordenada).style.backgroundSize = "100% 100%";
+                    break;
+                
+                //2 BOMBAS AO REDOR
+                case 2:
+                    document.getElementById(coordenada).style.background = "url('images/numero2.png') #441C0E";
+                    document.getElementById(coordenada).style.backgroundSize = "100% 100%";
+                    break;
+                
+                //3 BOMBAS AO REDOR
+                case 3:
+                    document.getElementById(coordenada).style.background = "url('images/numero3.png') #441C0E";
+                    document.getElementById(coordenada).style.backgroundSize = "100% 100%";
+                    break;
+    
+                //4 BOMBAS AO REDOR
+                case 4:
+                    document.getElementById(coordenada).style.background = "url('images/numero4.png') #441C0E";
+                    document.getElementById(coordenada).style.backgroundSize = "100% 100%";
+                    break;
+    
+                //5 BOMBAS AO REDOR
+                case 5:
+                    document.getElementById(coordenada).style.background = "url('images/numero5.png') #441C0E";
+                    document.getElementById(coordenada).style.backgroundSize = "100% 100%";
+                    break;
+    
+                //6 BOMBAS AO REDOR
+                case 6:
+                    document.getElementById(coordenada).style.background = "url('images/numero6.png') #441C0E";
+                    document.getElementById(coordenada).style.backgroundSize = "100% 100%";
+                    break;
+    
+                //7 BOMBAS AO REDOR
+                case 7:
+                    document.getElementById(coordenada).style.background = "url('images/numero7.png') #441C0E";
+                    document.getElementById(coordenada).style.backgroundSize = "100% 100%";
+                    break;
+    
+                //8 BOMBAS AO REDOR
+                case 8:
+                    document.getElementById(coordenada).style.background = "url('images/numero8.png') #441C0E";
+                    document.getElementById(coordenada).style.backgroundSize = "100% 100%";
+                    break;
+            }
         }
     }
+
 }
 
 
@@ -300,6 +319,9 @@ function iniciarJogo()
 {
     //DESABILITANDO O BOTÃO PLAY
     document.getElementById("play").disabled = true;
+
+    //MOSTRANDO O CONTADOR DE BANDEIRAS
+    document.getElementById("contador_bandeiras").style.display = "block";
     
     //MENSAGEM DE INTRODUÇÃO
     alert("Bem Vindo ao Campo Minado!! Seu objetivo é cavar todas as lacunas sem encontrar uma bomba! Boa sorte!!");
@@ -307,11 +329,17 @@ function iniciarJogo()
     //RESET DE VARIÁVEIS
     quantidadeDeLacunas = 82;
     contagem = 0;
+    quantidadeDeBandeiras = 16;
+
+    contadorBandeiras.innerHTML = quantidadeDeBandeiras;
+
     for(var coluna = 1; coluna <= 14; coluna++)
     {
         for(var linha = 0; linha <= 6; linha++)
         {
             document.getElementById(letras[linha]+coluna).disabled = false;
+            document.getElementById(letras[linha]+coluna).oncontextmenu = colocarBandeira;
+            document.getElementById(letras[linha]+coluna).onclick = cavar;
             document.getElementById(letras[linha]+coluna).style.backgroundImage = "linear-gradient(to bottom, rgb(105, 54, 12), rgb(121, 62, 15), rgb(105, 54, 12))";
             lacunasEncontradas[letras[linha] + coluna] = false;
             bombasLocalizacao[letras[linha] + coluna] = false;
