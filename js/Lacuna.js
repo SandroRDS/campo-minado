@@ -61,8 +61,17 @@ class Lacuna
             }
             else
             {
-                const numeroDeBombasAoRedor = this.verificarNumeroDeBombasAoRedor();
-                this._elementoHTML.innerHTML = numeroDeBombasAoRedor;
+                const coordenadasAoRedor = this.verificarCoordenadasDeLacunasAoRedor();
+                const numeroDeBombasAoRedor = this.verificarNumeroDeBombasAoRedor(coordenadasAoRedor);
+
+                if(numeroDeBombasAoRedor == 0)
+                {
+                    this.cavarBombasAoRedor(coordenadasAoRedor);
+                }
+                else
+                {
+                    this._elementoHTML.innerHTML = numeroDeBombasAoRedor;
+                }
             }
         }
     }
@@ -189,23 +198,33 @@ class Lacuna
         })
     }
 
-    verificarNumeroDeBombasAoRedor()
+    verificarNumeroDeBombasAoRedor(coordenadasAoRedor)
     {
-        const coordenadasAoRedor = this.verificarCoordenadasDeLacunasAoRedor();
         let numeroDeBombas = 0;
         
         coordenadasAoRedor.forEach((elemento) => {
             const x = elemento.coordenadaX;
             const y = elemento.coordenadaY;
             
-            const indice = (((y - 1) * this._limiteX) + x) - 1;
+            const lacuna = jogo.encontrarLacuna(x, y);
 
-            if(jogo._lacunas[indice]._temBomba)
+            if(lacuna._temBomba)
             {
                 numeroDeBombas++;
             }
         })
 
         return numeroDeBombas;
+    }
+
+    cavarBombasAoRedor(coordenadasAoRedor)
+    {
+        coordenadasAoRedor.forEach((elemento) => {
+            const x = elemento.coordenadaX;
+            const y = elemento.coordenadaY;
+
+            const lacuna = jogo.encontrarLacuna(x, y);
+            lacuna.cavarLacuna();
+        });
     }
 }

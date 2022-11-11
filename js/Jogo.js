@@ -73,7 +73,6 @@ class Jogo
         else
         {
             this._lacunas[indiceAleatorio]._temBomba = true;
-            console.log(this._lacunas[indiceAleatorio]);
         }
     }
 
@@ -83,5 +82,12 @@ class Jogo
         const max = this._lacunas.length;
         
         return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    encontrarLacuna(x, y)
+    {
+        const indice = (((y - 1) * this._configuracoes.columns) + x) - 1;
+        
+        return this._lacunas[indice];
     }
 }
