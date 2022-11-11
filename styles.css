@@ -2,6 +2,7 @@
 @import url('./styles/header.css');
 @import url('./styles/landscape-alert.css');
 @import url('./styles/ponteiro.css');
+@import url('./styles/campo.css');
 @font-face {
     font-family: 'Pixel Emulator';
     src: url('./fonts/pixel-emulator.ttf');

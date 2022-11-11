@@ -29,17 +29,17 @@
         <div class="campo"></div>
 
         <div class="ponteiros">
-            <input type="radio" name="ponteiro" id="pa" class="ponteiros__input" checked onchange="">
+            <input type="radio" name="ponteiro" id="pa" class="ponteiros__input" checked onchange="jogo.modificarPonteiro(1)">
             <label for="pa">
                 <img src="./images/pa.png" alt="pa">
             </label>
             
-            <input type="radio" name="ponteiro" id="bandeira" class="ponteiros__input" onchange="">
+            <input type="radio" name="ponteiro" id="bandeira" class="ponteiros__input" onchange="jogo.modificarPonteiro(2)">
             <label for="bandeira">
                 <img src="./images/bandeira.png" alt="bandeira">
             </label>
             
-            <input type="radio" name="ponteiro" id="interrogacao" class="ponteiros__input" onchange="">
+            <input type="radio" name="ponteiro" id="interrogacao" class="ponteiros__input" onchange="jogo.modificarPonteiro(3)">
             <label for="interrogacao">
                 <img src="./images/interrogacao.png" alt="incognita">
             </label>

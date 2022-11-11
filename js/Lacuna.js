@@ -1,26 +1,63 @@
 class Lacuna
 {
-    constructor(coordenadaX, coordenadaY, limiteX, limiteY)
+    constructor(objLacuna)
     {
-        this._coordenadaX = coordenadaX;
-        this._coordenadaY = coordenadaY;
-        this._limiteX = limiteX;
-        this._limiteY = limiteY;
+        this._elementoHTML = objLacuna.seletor;
+        
+        this._coordenadaX = objLacuna.coordenadaX;
+        this._coordenadaY = objLacuna.coordenadaY;
+        
+        this._limiteX = objLacuna.limiteX;
+        this._limiteY = objLacuna.limiteY;
+        
         this._temBomba;
         this._temBandeira = false;
         this._temIncognita = false;
         this._estaAberta = false;
+        
+        this._elementoHTML.onclick = () => this.pressionarLacuna();
+    }
+
+    pressionarLacuna()
+    {
+        const ponteiro = jogo._ponteiro;
+        let bombaEncontrada = false;
+
+        switch(ponteiro)
+        {
+            case 1:
+                bombaEncontrada = this.cavarLacuna();
+                break;
+            
+            case 2:
+                this.colocarBandeira();
+                break;
+
+            case 3:
+                this.colocarIncognita();
+                break;
+        }
     }
 
     cavarLacuna()
     {
-        if(this.temBandeira || this.estaAberta)
+        if(this._temBandeira || this._temIncognita || this._estaAberta)
         {
-
+            return false;
         }
         else
         {
-            this.estaAberta = true;
+            this._estaAberta = true;
+
+            if(this._temBomba)
+            {
+                return true;
+            }
+            else
+            {
+                const numeroDeBombasAoRedor = this.verificarNumeroDeBombasAoRedor();
+                this._elementoHTML.innerHTML = numeroDeBombasAoRedor;
+            }
         }
     }
 
@@ -35,6 +72,23 @@ class Lacuna
             else
             {
                 this._temBandeira = true;
+                this._temIncognita = false;
+            }
+        }
+    }
+
+    colocarIncognita()
+    {
+        if(!this._estaAberta)
+        {
+            if(this._temIncognita)
+            {
+                this._temIncognita = false;
+            }
+            else
+            {
+                this._temIncognita = true;
+                this._temBandeira = false;
             }
         }
     }
@@ -51,12 +105,12 @@ class Lacuna
             }
             else
             {
-                return {"coordenadaX":coordenadaX, "coordenadaY":coordenadaY};
+                return {coordenadaX: coordenadaX, coordenadaY: coordenadaY};
             }
         }
 
         const obterCoordenadaNorte = () => {
-            const coordenadaX = this._coordenadaX;
+            const coordenadaX = this._coordenadaX;            
             const coordenadaY = this._coordenadaY - 1 <= 0 ? null : this._coordenadaY - 1;
 
             coordenadas.push(validarCoordenada(coordenadaX, coordenadaY));
@@ -123,5 +177,25 @@ class Lacuna
         return coordenadas.filter((elemento) => {
             return elemento !== null;
         })
+    }
+
+    verificarNumeroDeBombasAoRedor()
+    {
+        const coordenadasAoRedor = this.verificarCoordenadasDeLacunasAoRedor();
+        let numeroDeBombas = 0;
+        
+        coordenadasAoRedor.forEach((elemento) => {
+            const x = elemento.coordenadaX;
+            const y = elemento.coordenadaY;
+            
+            const indice = (((y - 1) * this._limiteX) + x) - 1;
+
+            if(jogo._lacunas[indice]._temBomba)
+            {
+                numeroDeBombas++;
+            }
+        })
+
+        return numeroDeBombas;
     }
 }
