@@ -24,13 +24,20 @@
         width: 60px;
         height: 60px;
     
-        transition: all 100ms;
+        transition: all 300ms;
     }
     
     .ponteiros__input + label img
     {
         width: 40px;
         height: 40px;
+
+        transition: all 350ms;
+    }
+
+    .ponteiros__input + label:active img
+    {
+        transform: scale(1.3);
     }
     
     .ponteiros__input:checked + label
