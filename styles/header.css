@@ -1,0 +1,17 @@
+.cabecalho
+{
+    font-family: 'Pixel Emulator';
+    width: 100%;
+    height: 10%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cabecalho__titulo
+{
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #a15d33;
+}

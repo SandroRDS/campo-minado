@@ -1,0 +1,12 @@
+.campo
+{
+    display: none;
+}
+
+@media screen and (orientation: landscape) 
+{
+    .campo
+    {
+        display: grid;
+    }    
+}

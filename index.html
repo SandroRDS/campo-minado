@@ -2,163 +2,52 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campo Minado</title>
+    <meta name="author" content="SandroRDS">
+    <meta name="application-name" content="Campo Minado">
+    <meta name="description" content="Bem-vindo ao Campo Minado! Neste jogo de lógica numérica, você deve abrir todas as minas seguras, advinhando as possíveis posições de bombas e evitando-as.">
+
     <link rel="shortcut icon" href="images/bomba.png" type="image/x-icon">
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles.css">
+    
+    <title>Campo Minado - RDS Games</title>
 </head>
 <body>
-    <!--Título: Campo Minado-->
-    <div>
-        <h1 id="titulo">Campo Minado</h1>
-        <img src="images/bomba.png" style="margin-left: 5px;">
-    </div>
-    
-    <!--Botão: Play-->
-    <button id="play" onclick="iniciarJogo()">
-        <img src="images/play.png" width="30px" alt="">
-    </button>
+    <header class="cabecalho">
+        <h1 class="cabecalho__titulo">Campo Minad<span>&#128163;</span></h1>
+    </header>
 
-    <!--Imagem de Instrução-->
-    <img src="images/instrucao.png" alt="" style="position: absolute; right: 0.5%; top: 39vh;">
-    
-    <!--Fieldset: Campo Principal-->
-    <fieldset id="campo_principal">
-        
-        <!--Linha A-->
-        <div>
-            <button class="botao_mina" id="A1" disabled="true"></button>
-            <button class="botao_mina" id="A2" disabled="true"></button>
-            <button class="botao_mina" id="A3" disabled="true"></button>
-            <button class="botao_mina" id="A4" disabled="true"></button>
-            <button class="botao_mina" id="A5" disabled="true"></button>
-            <button class="botao_mina" id="A6" disabled="true"></button>
-            <button class="botao_mina" id="A7" disabled="true"></button>
-            <button class="botao_mina" id="A8" disabled="true"></button>
-            <button class="botao_mina" id="A9" disabled="true"></button>
-            <button class="botao_mina" id="A10" disabled="true"></button>
-            <button class="botao_mina" id="A11" disabled="true"></button>
-            <button class="botao_mina" id="A12" disabled="true"></button>
-            <button class="botao_mina" id="A13" disabled="true"></button>
-            <button class="botao_mina" id="A14" disabled="true"></button>
+    <main class="principal">
+        <div class="aviso_landscape">
+            <div class="aviso_landscape__container">
+                <img class="aviso_landscape__imagem" src="./images/landscape-alert.png" alt="">
+                <p class="aviso_landscape__descricao">Para jogar, a orientação deve estar em modo paisagem.</p>
+            </div>
         </div>
 
-        <!--Linha B-->
-        <div>
-            <button class="botao_mina" id="B1" disabled="true"></button>
-            <button class="botao_mina" id="B2" disabled="true"></button>
-            <button class="botao_mina" id="B3" disabled="true"></button>
-            <button class="botao_mina" id="B4" disabled="true"></button>
-            <button class="botao_mina" id="B5" disabled="true"></button>
-            <button class="botao_mina" id="B6" disabled="true"></button>
-            <button class="botao_mina" id="B7" disabled="true"></button>
-            <button class="botao_mina" id="B8" disabled="true"></button>
-            <button class="botao_mina" id="B9" disabled="true"></button>
-            <button class="botao_mina" id="B10" disabled="true"></button>
-            <button class="botao_mina" id="B11" disabled="true"></button>
-            <button class="botao_mina" id="B12" disabled="true"></button>
-            <button class="botao_mina" id="B13" disabled="true"></button>
-            <button class="botao_mina" id="B14" disabled="true"></button>
+        <div class="campo"></div>
+
+        <div class="ponteiros">
+            <input type="radio" name="ponteiro" id="pa" class="ponteiros__input" checked onchange="">
+            <label for="pa">
+                <img src="./images/pa.png" alt="pa">
+            </label>
+            
+            <input type="radio" name="ponteiro" id="bandeira" class="ponteiros__input" onchange="">
+            <label for="bandeira">
+                <img src="./images/bandeira.png" alt="bandeira">
+            </label>
+            
+            <input type="radio" name="ponteiro" id="interrogacao" class="ponteiros__input" onchange="">
+            <label for="interrogacao">
+                <img src="./images/interrogacao.png" alt="incognita">
+            </label>
         </div>
+    </main>
 
-        <!--Linha C-->
-        <div>
-            <button class="botao_mina" id="C1" disabled="true"></button>
-            <button class="botao_mina" id="C2" disabled="true"></button>
-            <button class="botao_mina" id="C3" disabled="true"></button>
-            <button class="botao_mina" id="C4" disabled="true"></button>
-            <button class="botao_mina" id="C5" disabled="true"></button>
-            <button class="botao_mina" id="C6" disabled="true"></button>
-            <button class="botao_mina" id="C7" disabled="true"></button>
-            <button class="botao_mina" id="C8" disabled="true"></button>
-            <button class="botao_mina" id="C9" disabled="true"></button>
-            <button class="botao_mina" id="C10" disabled="true"></button>
-            <button class="botao_mina" id="C11" disabled="true"></button>
-            <button class="botao_mina" id="C12" disabled="true"></button>
-            <button class="botao_mina" id="C13" disabled="true"></button>
-            <button class="botao_mina" id="C14" disabled="true"></button>
-        </div>
-
-        <!--Linha D-->
-        <div>
-            <button class="botao_mina" id="D1" disabled="true"></button>
-            <button class="botao_mina" id="D2" disabled="true"></button>
-            <button class="botao_mina" id="D3" disabled="true"></button>
-            <button class="botao_mina" id="D4" disabled="true"></button>
-            <button class="botao_mina" id="D5" disabled="true"></button>
-            <button class="botao_mina" id="D6" disabled="true"></button>
-            <button class="botao_mina" id="D7" disabled="true"></button>
-            <button class="botao_mina" id="D8" disabled="true"></button>
-            <button class="botao_mina" id="D9" disabled="true"></button>
-            <button class="botao_mina" id="D10" disabled="true"></button>
-            <button class="botao_mina" id="D11" disabled="true"></button>
-            <button class="botao_mina" id="D12" disabled="true"></button>
-            <button class="botao_mina" id="D13" disabled="true"></button>
-            <button class="botao_mina" id="D14" disabled="true"></button>
-        </div>
-
-        <!--Linha E-->
-        <div>
-            <button class="botao_mina" id="E1" disabled="true"></button>
-            <button class="botao_mina" id="E2" disabled="true"></button>
-            <button class="botao_mina" id="E3" disabled="true"></button>
-            <button class="botao_mina" id="E4" disabled="true"></button>
-            <button class="botao_mina" id="E5" disabled="true"></button>
-            <button class="botao_mina" id="E6" disabled="true"></button>
-            <button class="botao_mina" id="E7" disabled="true"></button>
-            <button class="botao_mina" id="E8" disabled="true"></button>
-            <button class="botao_mina" id="E9" disabled="true"></button>
-            <button class="botao_mina" id="E10" disabled="true"></button>
-            <button class="botao_mina" id="E11" disabled="true"></button>
-            <button class="botao_mina" id="E12" disabled="true"></button>
-            <button class="botao_mina" id="E13" disabled="true"></button>
-            <button class="botao_mina" id="E14" disabled="true"></button>
-        </div>
-
-        <!--Linha F-->
-        <div>
-            <button class="botao_mina" id="F1" disabled="true"></button>
-            <button class="botao_mina" id="F2" disabled="true"></button>
-            <button class="botao_mina" id="F3" disabled="true"></button>
-            <button class="botao_mina" id="F4" disabled="true"></button>
-            <button class="botao_mina" id="F5" disabled="true"></button>
-            <button class="botao_mina" id="F6" disabled="true"></button>
-            <button class="botao_mina" id="F7" disabled="true"></button>
-            <button class="botao_mina" id="F8" disabled="true"></button>
-            <button class="botao_mina" id="F9" disabled="true"></button>
-            <button class="botao_mina" id="F10" disabled="true"></button>
-            <button class="botao_mina" id="F11" disabled="true"></button>
-            <button class="botao_mina" id="F12" disabled="true"></button>
-            <button class="botao_mina" id="F13" disabled="true"></button>
-            <button class="botao_mina" id="F14" disabled="true"></button>
-        </div>
-
-        <!--Linha G-->
-        <div>
-            <button class="botao_mina" id="G1" disabled="true"></button>
-            <button class="botao_mina" id="G2" disabled="true"></button>
-            <button class="botao_mina" id="G3" disabled="true"></button>
-            <button class="botao_mina" id="G4" disabled="true"></button>
-            <button class="botao_mina" id="G5" disabled="true"></button>
-            <button class="botao_mina" id="G6" disabled="true"></button>
-            <button class="botao_mina" id="G7" disabled="true"></button>
-            <button class="botao_mina" id="G8" disabled="true"></button>
-            <button class="botao_mina" id="G9" disabled="true"></button>
-            <button class="botao_mina" id="G10" disabled="true"></button>
-            <button class="botao_mina" id="G11" disabled="true"></button>
-            <button class="botao_mina" id="G12" disabled="true"></button>
-            <button class="botao_mina" id="G13" disabled="true"></button>
-            <button class="botao_mina" id="G14" disabled="true"></button>
-        </div>
-    </fieldset>
-
-    <div id="contador_bandeiras">
-        <img src="images/bandeira.png" width="50px">
-        <span id="bandeiras_quantidade"></span>
-    </div>
-
-    <!--Chamando arquivo funcoes.js-->
-    <script src="js/funcoes.js"></script>
+    <script src="./js/Lacuna.js"></script>
+    <script src="./js/Jogo.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 </html>

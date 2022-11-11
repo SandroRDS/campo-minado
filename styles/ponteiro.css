@@ -1,0 +1,46 @@
+.ponteiros
+{
+    display: none;
+}
+
+@media screen and (orientation: landscape) 
+{
+    .ponteiros
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    
+        position: absolute;
+        left: 20px;
+    }
+    
+    .ponteiros__input + label
+    {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    
+        border-radius: 100%;
+        width: 60px;
+        height: 60px;
+    
+        transition: all 100ms;
+    }
+    
+    .ponteiros__input + label img
+    {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .ponteiros__input:checked + label
+    {
+        background-color: #4a8a00;
+    }
+    
+    .ponteiros__input
+    {
+        display: none;
+    }
+}
