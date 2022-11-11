@@ -37,6 +37,11 @@ class Lacuna
                 this.colocarIncognita();
                 break;
         }
+
+        if(bombaEncontrada)
+        {
+            this._elementoHTML.innerHTML = "<img src='./images/bomba.png'>";
+        }
     }
 
     cavarLacuna()
@@ -48,6 +53,7 @@ class Lacuna
         else
         {
             this._estaAberta = true;
+            this._elementoHTML.classList.toggle("lacuna--aberta");
 
             if(this._temBomba)
             {
@@ -68,10 +74,12 @@ class Lacuna
             if(this._temBandeira)
             {
                 this._temBandeira = false;
+                this._elementoHTML.innerHTML = "";
             }
             else
             {
                 this._temBandeira = true;
+                this._elementoHTML.innerHTML = "<img src='./images/bandeira.png'>";
                 this._temIncognita = false;
             }
         }
@@ -84,10 +92,12 @@ class Lacuna
             if(this._temIncognita)
             {
                 this._temIncognita = false;
+                this._elementoHTML.innerHTML = "";
             }
             else
             {
                 this._temIncognita = true;
+                this._elementoHTML.innerHTML = "<img src='./images/interrogacao.png'>";
                 this._temBandeira = false;
             }
         }

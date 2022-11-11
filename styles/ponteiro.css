@@ -7,12 +7,11 @@
 {
     .ponteiros
     {
+        justify-self: flex-end;
+
         display: flex;
         flex-direction: column;
         gap: 10px;
-    
-        position: absolute;
-        left: 20px;
     }
     
     .ponteiros__input + label

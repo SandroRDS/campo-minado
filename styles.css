@@ -23,8 +23,15 @@ body
 .principal
 {
     height: 90%;
+}
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@media screen and (orientation: landscape) 
+{
+    .principal
+    {
+        display: grid;
+        grid-template-columns: 10% 1fr;
+        align-items: center;
+        justify-items: center;
+    }    
 }
