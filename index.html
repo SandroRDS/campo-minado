@@ -6,7 +6,8 @@
     <meta name="author" content="SandroRDS">
     <meta name="application-name" content="Campo Minado">
     <meta name="description" content="Bem-vindo ao Campo Minado! Neste jogo de lógica numérica, você deve abrir todas as minas seguras, advinhando as possíveis posições de bombas e evitando-as.">
-
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0">
     <link rel="shortcut icon" href="images/bomba.png" type="image/x-icon">
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles.css">
@@ -15,6 +16,22 @@
 </head>
 <body>
     <header class="cabecalho">
+        <div class="ponteiros ponteiros--desativado">
+            <input type="radio" name="ponteiro" id="pa" class="ponteiros__input" checked onchange="main._jogo.modificarPonteiro(1)">
+            <label for="pa">
+                <img src="./images/pa.png" alt="pa">
+            </label>
+            
+            <input type="radio" name="ponteiro" id="bandeira" class="ponteiros__input" onchange="main._jogo.modificarPonteiro(2)">
+            <label for="bandeira">
+                <img src="./images/bandeira.png" alt="bandeira">
+            </label>
+            
+            <input type="radio" name="ponteiro" id="interrogacao" class="ponteiros__input" onchange="main._jogo.modificarPonteiro(3)">
+            <label for="interrogacao">
+                <img src="./images/interrogacao.png" alt="incognita">
+            </label>
+        </div>
         <h1 class="cabecalho__titulo">Campo Minad<span>&#128163;</span></h1>
     </header>
 
@@ -26,29 +43,58 @@
             </div>
         </div>
 
-        <div class="ponteiros">
-            <input type="radio" name="ponteiro" id="pa" class="ponteiros__input" checked onchange="jogo.modificarPonteiro(1)">
-            <label for="pa">
-                <img src="./images/pa.png" alt="pa">
-            </label>
-            
-            <input type="radio" name="ponteiro" id="bandeira" class="ponteiros__input" onchange="jogo.modificarPonteiro(2)">
-            <label for="bandeira">
-                <img src="./images/bandeira.png" alt="bandeira">
-            </label>
-            
-            <input type="radio" name="ponteiro" id="interrogacao" class="ponteiros__input" onchange="jogo.modificarPonteiro(3)">
-            <label for="interrogacao">
-                <img src="./images/interrogacao.png" alt="incognita">
-            </label>
+        <div class="menu">
+            <h2 class="menu__titulo">Modo de Jogo</h2>
+            <div class="menu__modos">
+                <div class="menu__container menu__container--escolhido" onclick="selecionarModo(0)">
+                    <div class="menu__dificuldade">
+                        <img src="./images/bomba.png" alt="">
+                    </div>
+                    <img src="./images/grade.png" class="menu__icone_grade" alt="">
+                    <p class="menu__tamanho_grade">5 X 10</p>
+                    <div class="menu__bombas">
+                        <img src="./images/bomba.png" alt="">
+                        <p class="menu__quantidade_bombas">8</p>
+                    </div>
+                </div>
+                <div class="menu__container" onclick="selecionarModo(1)">
+                    <div class="menu__dificuldade">
+                        <img src="./images/bomba.png" alt="">
+                        <img src="./images/bomba.png" alt="">
+                    </div>
+                    <img src="./images/grade.png" class="menu__icone_grade" alt="">
+                    <p class="menu__tamanho_grade">8 X 14</p>
+                    <div class="menu__bombas">
+                        <img src="./images/bomba.png" alt="">
+                        <p class="menu__quantidade_bombas">15</p>
+                    </div>
+                </div>
+                <div class="menu__container" onclick="selecionarModo(2)">
+                    <div class="menu__dificuldade">
+                        <img src="./images/bomba.png" alt="">
+                        <img src="./images/bomba.png" alt="">
+                        <img src="./images/bomba.png" alt="">
+                    </div>
+                    <img src="./images/grade.png" class="menu__icone_grade" alt="">
+                    <p class="menu__tamanho_grade">8 X 18</p>
+                    <div class="menu__bombas">
+                        <img src="./images/bomba.png" alt="">
+                        <p class="menu__quantidade_bombas">20</p>
+                    </div>
+                </div>
+            </div>
+            <button class="menu__botao" onclick="main.iniciarNovoJogo()">
+                <span class="menu__botao__icone material-symbols-outlined">play_arrow</span>
+                <p class="menu__botao__texto">Jogar</p>
+            </button>
         </div>
-        
-        <div class="campo"></div>
 
+        <div class="campo campo--desativado"></div>
     </main>
 
     <script src="./js/Lacuna.js"></script>
     <script src="./js/Jogo.js"></script>
+    <script src="./js/selecionarModo.js"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>

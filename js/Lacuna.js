@@ -20,7 +20,7 @@ class Lacuna
 
     pressionarLacuna()
     {
-        const ponteiro = jogo._ponteiro;
+        const ponteiro = main._jogo._ponteiro;
         let bombaEncontrada = false;
 
         switch(ponteiro)
@@ -40,7 +40,7 @@ class Lacuna
 
         if(bombaEncontrada)
         {
-            this._elementoHTML.innerHTML = "<img src='./images/bomba.png'>";
+            main.finalizarJogo();
         }
     }
 
@@ -206,7 +206,7 @@ class Lacuna
             const x = elemento.coordenadaX;
             const y = elemento.coordenadaY;
             
-            const lacuna = jogo.encontrarLacuna(x, y);
+            const lacuna = main._jogo.encontrarLacuna(x, y);
 
             if(lacuna._temBomba)
             {
@@ -223,7 +223,7 @@ class Lacuna
             const x = elemento.coordenadaX;
             const y = elemento.coordenadaY;
 
-            const lacuna = jogo.encontrarLacuna(x, y);
+            const lacuna = main._jogo.encontrarLacuna(x, y);
             lacuna.cavarLacuna();
         });
     }

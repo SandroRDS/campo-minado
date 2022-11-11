@@ -3,6 +3,8 @@ class Jogo
     constructor(seletor, configuracoes)
     {
         this._container = document.querySelector(seletor);
+        this._container.innerHTML = "";
+
         this._configuracoes = configuracoes;
         this._lacunas = this.gerarLacunas();
         this._ponteiro = 1;
@@ -89,5 +91,15 @@ class Jogo
         const indice = (((y - 1) * this._configuracoes.columns) + x) - 1;
         
         return this._lacunas[indice];
+    }
+
+    revelarBombas()
+    {
+        this._lacunas.forEach((lacuna) => {
+            if(lacuna._temBomba)
+            {
+                lacuna._elementoHTML.innerHTML = "<img src='./images/bomba.png'>";
+            } 
+        })
     }
 }

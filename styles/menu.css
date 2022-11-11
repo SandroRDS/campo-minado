@@ -1,0 +1,120 @@
+.menu
+{
+    display: none;
+}
+
+@media screen and (orientation: landscape) 
+{
+    .menu
+    {
+        width: 100%;
+        height: 100%;
+
+        display: grid;
+        grid-template-rows: 15% 1fr 20%;
+        align-items: center;
+        justify-items: center;
+    }
+
+    .menu--desativado
+    {
+        display: none;
+    }
+
+    .menu__titulo
+    {
+        font-family: 'Pixel Emulator';
+        font-size: 1.5em;
+        color: #378a00;
+    }
+
+    .menu__modos
+    {
+        width: 100%;
+
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .menu__container
+    {
+        display: grid;
+        justify-items: center;
+        gap: 5px;
+        
+        width: 25%;
+        border: 2px dashed #378a00;
+        border-radius: 12px;
+        padding: 5px 10px;
+
+        background-color: #378a0065;
+        box-shadow: 0px 4px 10px 1px #1c380856;
+
+        transition: all 150ms;
+    }
+
+    .menu__container--escolhido
+    {
+        background-color: #72be3e65;
+        transform: scale(1.1);
+    }
+
+    .menu__tamanho_grade
+    {
+        font-weight: 600;
+        font-size: 1.1em;
+        color: #693d0e;
+    }
+
+    .menu__bombas
+    {
+        display: flex;
+        align-items: center;
+    }
+
+    .menu__bombas img
+    {
+        width: 30px;
+        height: 30px;
+    }
+
+    .menu__quantidade_bombas
+    {
+        font-weight: 600;
+        font-size: 1.1em;
+        color: #7b4d1c;
+    }
+
+    .menu__botao
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: #378a0065;
+        width: 20%;
+        height: 80%;
+
+        border: 2px solid #1c410465;
+        border-radius: 6px;
+        box-shadow: -3px 3px 5px #2f610e65;
+
+        transition: all 200ms;
+    }
+
+    .menu__botao:active
+    {
+        transform: scale(1.2);
+    }
+
+    .menu__botao__icone
+    {
+        font-size: 30px;
+    }
+
+    .menu__botao__texto
+    {
+        font-family: 'Pixel Emulator';
+        font-size: 1.2em;
+    }
+}

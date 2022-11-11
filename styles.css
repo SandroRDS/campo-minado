@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('./styles/header.css');
 @import url('./styles/landscape-alert.css');
+@import url('./styles/menu.css');
 @import url('./styles/ponteiro.css');
 @import url('./styles/campo.css');
 @font-face {
@@ -22,16 +23,15 @@ body
 
 .principal
 {
-    height: 90%;
+    height: 88%;
 }
 
 @media screen and (orientation: landscape) 
 {
     .principal
     {
-        display: grid;
-        grid-template-columns: 10% 1fr;
+        display: flex;
+        justify-content: space-around;
         align-items: center;
-        justify-items: center;
     }    
 }
