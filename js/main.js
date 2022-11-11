@@ -39,10 +39,18 @@ class Main
         document.querySelector(".menu").classList.toggle("menu--desativado");
     }
 
-    finalizarJogo()
+    finalizarJogo(situacao)
     {
         this._jogo.revelarBombas();
-        alert("Você encontrou uma bomba!");
+        
+        if(situacao == 0)
+        {
+            alert("Você encontrou uma bomba!");
+        }
+        else
+        {
+            alert("Você venceu!!");
+        }
 
         this._jogo._container.classList.toggle("campo--desativado");
         this._containerPonteiros.classList.toggle("ponteiros--desativado");

@@ -40,7 +40,12 @@ class Lacuna
 
         if(bombaEncontrada)
         {
-            main.finalizarJogo();
+            main.finalizarJogo(0);
+        }
+
+        if(main._jogo._numeroDeLacunasSeguras <= 0)
+        {
+            main.finalizarJogo(1);
         }
     }
 
@@ -61,6 +66,8 @@ class Lacuna
             }
             else
             {
+                main._jogo._numeroDeLacunasSeguras--;
+                
                 const coordenadasAoRedor = this.verificarCoordenadasDeLacunasAoRedor();
                 const numeroDeBombasAoRedor = this.verificarNumeroDeBombasAoRedor(coordenadasAoRedor);
 

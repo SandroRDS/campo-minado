@@ -8,6 +8,7 @@ class Jogo
         this._configuracoes = configuracoes;
         this._lacunas = this.gerarLacunas();
         this._ponteiro = 1;
+        this._numeroDeLacunasSeguras = configuracoes.columns * configuracoes.rows - configuracoes.bombas;
 
         this.configurarContainer();
         this.inserirBombasRecursivamente(configuracoes.bombas);
